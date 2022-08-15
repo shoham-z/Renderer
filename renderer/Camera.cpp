@@ -100,7 +100,7 @@ void pixel::colorPixel(Camera *camera, int start, int end, int width, int height
         for (int j = 0; j < width; j++) {
             camera->progress++;
             if (camera->progress % 500 == 0) {
-                //std::cout << camera->progress * 100 / (double) (width * height) << "%" << std::endl;
+                std::cout << camera->progress * 100 / (double) (width * height) << "%" << std::endl;
                 camera->writeToImage();
             }
 

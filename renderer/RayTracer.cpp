@@ -33,9 +33,9 @@ Color RayTracer::calcColor(GeoPoint geoPoint, Ray ray, int level, double k) {
 
             // transparency check
             double lightDistance = lightSource->getDistance(geoPoint.point);
-            Ray refractedRay = {geoPoint.point, lightDirection, n};
+            Ray reflectedRay = {geoPoint.point, lightDirection, n};
             std::list<GeoPoint> intersections = this->scene.geometries
-                    .findGeoIntersections(refractedRay, lightDistance);
+                    .findGeoIntersections(reflectedRay, lightDistance);
             if (intersections.empty()) {ktr =  1;}
 
             if (ktr ==-1) {

@@ -128,7 +128,7 @@ void objTest(){
 int main() {
     //objTest();
     //street();
-    LightsTests();
+    LightsTests::shadowTest();
     return 0;
 }
 
