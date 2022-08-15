@@ -45,6 +45,35 @@ public:
 
     Color purple = Color::blue().add(Color::red());
 
+    static void shadowTest() {
+        Scene scene =Scene("Test scene");
+        scene.setAmbientLight(AmbientLight(Color::white(),Point(0.15)));
+
+        scene.addGeometry(std::make_shared<Triangle>(
+        Triangle(Point(-150, -150, -115),Point(150, -150, -135),Point(75, 75, -150))
+                .setMaterial(Material().setSpecular(0.8).setShininess(60))));
+        scene.addGeometry(std::make_shared<Triangle>(
+                Triangle(Point(-150, -150, -115),Point(-70, 70, -140),Point(75, 75, -150))
+            .setMaterial(Material().setSpecular(0.8).setShininess(60))));
+
+        scene.addGeometry(std::make_shared<Sphere>(
+        Sphere(Point(0, 0, -11), 30)
+                .setEmission(Color::blue())
+                .setMaterial(Material().setDiffusive(0.5).setSpecular(0.5).setShininess(30))));
+
+        scene.addLight(std::make_shared<SpotLight>(
+                SpotLight(Point(40, 40, 115),Vector(-1, -1, -4),
+                          Color(2.74509803922, 1.56862745098, 1.56862745098))
+                .setKl(4E-4).setKq(2E-5)));
+
+        Camera camera = Camera(Point(0, 0, 1000), Vector(0, 0, -1), Vector(0, 1, 0))
+                .setVPSize(200, 200).setVPDistance(1000)
+                .setRayTracer(RayTracer(scene))
+                .setImageWriter(ImageWriter("shadowTrianglesSphere", 600, 600))
+                .renderImage()
+                .writeToImage();
+    }
+
     LightsTests() {
         this->triangle1.setMaterial(material);
         this->triangle2.setMaterial(material);
