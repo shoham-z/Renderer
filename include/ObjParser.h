@@ -62,28 +62,24 @@ Geometries parse(const std::string& fname) {
                         }
                     } else { s = s.substr(1, s.length() - 1); }
                 }
+                //fac.emplace_back(std::stoi(s));
                 faces.emplace_back(fac);
             }
         }
     }
-    Point poly[4];
+    std::vector<Point> edges;
     int index=0;
     for (const auto& face: faces){
         for(auto ver: face.vertices){
-            poly[index%4] = points[ver-1];
+            edges.emplace_back(points[ver-1]);
             index++;
-            if (index%4==0) mesh.addShared(std::make_shared<Polygon>(
-                    Polygon(poly[0], poly[1], poly[2], poly[3])
+            if (index==face.vertices.size()) mesh.addShared(std::make_shared<Polygon>(
+                    Polygon(edges)
                     .setMaterial(Material().setDiffusive(0.5).setSpecular(0.5).setShininess(30))
                     .setEmission(Color::green())));
                     //.setEmission(Color(rand()/double_t(RAND_MAX) + 0.5,rand()/double_t(RAND_MAX) + 0.5,rand()/double_t(RAND_MAX) + 0.5))));
         }
     }
-    poly[3] = points[points.size()-1];
-    mesh.addShared(std::make_shared<Polygon>(
-            Polygon(poly[0], poly[1], poly[2], poly[3])
-                    .setMaterial(Material().setDiffusive(0.5).setSpecular(0.5).setShininess(30))
-                    .setEmission(Color::green())));
     return mesh;
 }
 

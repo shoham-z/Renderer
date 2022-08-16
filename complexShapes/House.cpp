@@ -21,8 +21,13 @@ House::House(Point baseBottom, double height, Vector up, Vector right) {
     Point doorBottomLeft = frontBottomCenter.add(right.scale(-doorWidth / 2));
     Point doorTopRight = doorBottomRight.add(up.scale(doorHeight));
     Point doorTopLeft = doorBottomLeft.add(up.scale(doorHeight));
+    std::vector<Point> edges;
+    edges.emplace_back(doorTopRight);
+    edges.emplace_back(doorTopLeft);
+    edges.emplace_back(doorBottomLeft);
+    edges.emplace_back(doorBottomRight);
 
-    Polygon door = Polygon(doorBottomRight, doorTopRight, doorTopLeft, doorBottomLeft).setMaterial(
+    Polygon door = Polygon(edges).setMaterial(
             material).setEmission(Color(1, .24, .24));
 
 

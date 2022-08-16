@@ -70,10 +70,13 @@ void street() {
         for (int i = 1; i < howManyHouses * step; i += (int) step) {
             scene.geometries.add(House(housesCenter.add(to.scale(houseSize * i)), houseSize, up, to.scale(-1)).house);
         }
+        std::vector<Point> edges;
+        edges.emplace_back(housesCenter.add(right.scale(-100)));
+        edges.emplace_back(housesCenter.add(right.scale(-300)));
+        edges.emplace_back(housesCenter.add(right.scale(-300)).add(to.scale(600)));
+        edges.emplace_back(housesCenter.add(right.scale(-100)).add(to.scale(600)));
         scene.geometries.addShared(std::make_shared<Polygon>(
-                Polygon(housesCenter.add(right.scale(-100)), housesCenter.add(right.scale(-300)),
-                        housesCenter.add(right.scale(-300)).add(to.scale(600)),
-                        housesCenter.add(right.scale(-100)).add(to.scale(600)))
+                Polygon(edges)
                         .setEmission(Color::blue())
                         .setMaterial(Material().setReflective(0.5).setSpecular(0.5))));
         scene.geometries.addShared(
@@ -107,10 +110,10 @@ void street() {
 }
 
 void objTest(){
-    std::string name = "polygon";
-    double d = 10;
+    std::string name = "human";
+    double d = 100;
     Camera camera = Camera(Point(0, 0, -d), Vector(0, 0, 1), Vector(0, 1, 0))
-            .setVPSize(10, 10)
+            .setVPSize(20, 20)
             .setVPDistance(d);
 
     Scene scene = Scene("scene").setGeometries(parse("../ObjModels/" + name +".obj"));
@@ -126,9 +129,9 @@ void objTest(){
 }
 
 int main() {
-    //objTest();
+    objTest();
     //street();
-    LightsTests::shadowTest();
+    //LightsTests::shadowTest();
     return 0;
 }
 
