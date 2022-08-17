@@ -1,6 +1,5 @@
 # Renderer
-This is a ray tracer that saves images to the disk.
-The original was written in java and I am rewriting in c++ because I wanted to experiment.
+Copied the repository from https://github.com/shoham-z/RayTracer
 
 # TO DO
 - Fix the polygon intersection function.
